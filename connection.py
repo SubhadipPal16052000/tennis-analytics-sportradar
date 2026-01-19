@@ -1,5 +1,5 @@
 import psycopg
-from db_config import DB_CONFIG
+from db_config import DB_CONNECT_ARGS
 import os
 
 print("DB_HOST =", os.getenv("DB_HOST"))

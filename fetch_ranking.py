@@ -1,4 +1,4 @@
-from db_config import DB_CONFIG
+from db_config import DB_CONNECT_ARGS
 import os
 import requests
 import psycopg
@@ -101,7 +101,7 @@ def store_data(data):
                 ranking_week
             ))
 
-    conn = psycopg.connect(**DB_CONFIG)
+    conn = psycopg.connect(**DB_CONNECT_ARGS)
     cur = conn.cursor()
 
     execute_values(

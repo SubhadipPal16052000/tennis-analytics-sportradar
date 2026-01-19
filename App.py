@@ -17,57 +17,45 @@ st.set_page_config(
 st.title("🎾 Tennis Analytics Dashboard")
 st.caption("Real time Game Analytics: Unlocking Tennis Data with SportRadar API")
 
-# ==================================================
-# 2. AUTO-RUN ETL WHEN APP STARTS (ONCE PER SESSION)
-# ==================================================
-if "etl_ran" not in st.session_state:
-    st.session_state.etl_ran = False
-
-if not st.session_state.etl_ran:
-    with st.spinner("Fetching latest data from SportRadar API..."):
-        try:
-            subprocess.run(
-                [sys.executable, "ETL.py"],
-                check=True
-            )
-            st.session_state.etl_ran = True
-            st.success("Latest data loaded successfully")
-        except Exception as e:
-            st.error("ETL failed while fetching data")
-            st.exception(e)
 
 # ==================================================
 # MANUAL REFRESH BUTTON (SIDEBAR)
 # ==================================================
 with st.sidebar:
-    st.header("Data Controls")
+    st.header("⚙️ Data Controls")
 
-    if st.button("Refresh Data (Run ETL)"):
-        with st.spinner("Refreshing data from API..."):
-            try:
-                subprocess.run(
-                    [sys.executable, "ETL.py"],
-                    check=True
-                )
-                st.success("Data refreshed successfully")
-            except Exception as e:
-                st.error("Data refresh failed")
-                st.exception(e)
+    if st.button("🔄 Refresh Data (Run ETL)"):
+        st.warning("This may take Time")
+        with st.spinner("Running ETL pipeline..."):
+            result = subprocess.run(
+                [sys.executable, "ETL.py"],
+                capture_output=True,
+                text=True
+            )
+
+            if result.returncode == 0:
+                st.success("ETL completed successfully")
+            else:
+                st.error("ETL failed")
+                st.code(result.stderr)
 
 # ============================================================
 # DATABASE HELPER
 # ============================================================
-
+import streamlit as st   
 import psycopg
 import pandas as pd
 from db_config import DB_CONNECT_ARGS
 
-def run_query(query: str) -> pd.DataFrame:
-    """
-    Execute a SELECT query and return result as DataFrame
-    """
+def run_query(query):
     with psycopg.connect(**DB_CONNECT_ARGS) as conn:
         return pd.read_sql(query, conn)
+
+
+@st.cache_data(ttl=300)  # cache for 5 minutes
+def cached_query(query: str) -> pd.DataFrame:
+    return run_query(query)
+
 
 # ==================================================
 # KPI CARDS (KPIs)

@@ -1,8 +1,8 @@
-from db_config import DB_CONFIG
+from db_config import DB_CONNECT_ARGS
 import os
 import requests
 import psycopg
-from psycopg2.extras import execute_values
+from psycopg.extras import execute_values
 
 # -----------------------------
 # CONFIGURATION
@@ -48,7 +48,7 @@ def store_data(data):
                 complex_id
             ))
 
-    conn = psycopg.connect(**DB_CONFIG)
+    conn = psycopg.connect(**DB_CONNECT_ARGS)
     cur = conn.cursor()
 
     execute_values(

@@ -12,9 +12,9 @@ ETL_JOBS = [
 
 def run_job(job_name, script_name):
     print("\n" + "=" * 60)
-    print(f"▶ STARTING: {job_name}")
-    print(f"▶ Script: {script_name}")
-    print(f"▶ Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"> STARTING: {job_name}")
+    print(f"> Script: {script_name}")
+    print(f"> Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
     start_time = time.time()
