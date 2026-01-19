@@ -5,6 +5,7 @@ import psycopg
 import os
 import subprocess
 import sys
+from db_config import DB_CONNECT_ARGS
 # ==================================================
 # PAGE CONFIG
 # ==================================================
@@ -53,15 +54,20 @@ with st.sidebar:
                 st.error("Data refresh failed")
                 st.exception(e)
 
-# ==================================================
+# ============================================================
 # DATABASE HELPER
-# ==================================================
-def run_query(query):
-    conn = psycopg.connect(**DB_CONFIG)
-    try:
+# ============================================================
+
+import psycopg
+import pandas as pd
+from db_config import DB_CONNECT_ARGS
+
+def run_query(query: str) -> pd.DataFrame:
+    """
+    Execute a SELECT query and return result as DataFrame
+    """
+    with psycopg.connect(**DB_CONNECT_ARGS) as conn:
         return pd.read_sql(query, conn)
-    finally:
-        conn.close()
 
 # ==================================================
 # KPI CARDS (KPIs)
