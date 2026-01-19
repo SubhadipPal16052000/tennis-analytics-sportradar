@@ -1,28 +1,23 @@
 # -----------------------------
-# Core Python Libraries
+# Core
 # -----------------------------
-python-dotenv==1.0.1
-
-# -----------------------------
-# API & HTTP Requests
-# -----------------------------
+streamlit==1.37.1
 requests==2.32.3
 
 # -----------------------------
-# Database Connectivity
+# Database
 # -----------------------------
 psycopg2-binary==2.9.9
 SQLAlchemy==2.0.32
 
 # -----------------------------
-# Data Handling
+# Data
 # -----------------------------
 pandas==2.2.2
 
 # -----------------------------
-# Dashboard & Visualization
+# Visualization
 # -----------------------------
-streamlit==1.37.1
 plotly==5.23.0
 matplotlib==3.9.0
-seaborn
+seaborn==0.13.2
