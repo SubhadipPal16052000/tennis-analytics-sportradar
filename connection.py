@@ -1,10 +1,10 @@
-import psycopg2
+import psycopg
 from db_config import DB_CONFIG
 import os
 
 print("DB_HOST =", os.getenv("DB_HOST"))
 
-conn = psycopg2.connect(**DB_CONFIG)
+conn = psycopg.connect(**DB_CONFIG)
 cur = conn.cursor()
 cur.execute("SELECT inet_server_addr();")
 print("Server IP:", cur.fetchone()[0])

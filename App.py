@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import psycopg2
+import psycopg
 import os
 import subprocess
 import sys
@@ -57,13 +57,7 @@ with st.sidebar:
 # DATABASE HELPER
 # ==================================================
 def run_query(query):
-    conn = psycopg2.connect(
-        dbname="sportradar_db",
-        user="postgres",
-        password=os.getenv("DB_PASSWORD"),
-        host="localhost",
-        port="5432"
-    )
+    conn = psycopg.connect(**DB_CONFIG)
     try:
         return pd.read_sql(query, conn)
     finally:
