@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+# pyright: reportMissingImports=false
 import plotly.express as px
 import psycopg
 import os
