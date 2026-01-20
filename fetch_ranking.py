@@ -2,7 +2,8 @@ from db_config import DB_CONNECT_ARGS
 import os
 import requests
 import psycopg
-from psycopg2.extras import execute_values
+# pyright: reportMissingImports=false
+from psycopg.extras import execute_values
 from datetime import date
 
 # -----------------------------

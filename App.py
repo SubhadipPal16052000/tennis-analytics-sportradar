@@ -42,7 +42,7 @@ with st.sidebar:
 # ============================================================
 # DATABASE HELPER
 # ============================================================
-import streamlit as st   
+import streamlit as st
 import psycopg
 import pandas as pd
 from db_config import DB_CONNECT_ARGS
