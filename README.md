@@ -19,41 +19,48 @@ The system is designed with **production constraints in mind**, including cloud 
 
 ## 🏗️ Architecture Overview
 
-Sportradar API
-      |
-      v
- ETL Scripts (Python)
-      |
-      v
- PostgreSQL (Neon / Cloud DB)
-      |
-      v
- Streamlit Analytics Dashboard
+flowchart LR
+    A[Sportradar Tennis API] --> B[ETL Scripts<br/>(Python)]
+    B --> C[(PostgreSQL<br/>Neon / Cloud DB)]
+    C --> D[Streamlit Analytics Dashboard]
+
+    Subgraph ETL Layer
+        B1[fetch_competitions.py]
+        B2[fetch_complexes.py]
+        B3[fetch_ranking.py]
+    end
+
+    B --> B1
+    B --> B2
+    B --> B3
+
  
 ---
 
 ## 📂 Project Structure
 
-tennis-analytics-sportradar/
-│
-├── App.py                  # Streamlit dashboard (read-only analytics)
-├── ETL.py                  # Orchestrates ETL jobs (local execution)
-│
-├── fetch_competitions.py   # ETL: competitions data
-├── fetch_complexes.py      # ETL: complexes & venues data
-├── fetch_ranking.py        # ETL: player rankings data
-│
-├── db_config.py            # Centralised DB configuration
-├── connection.py           # Database connection helpers
-│
-├── tennis_schema.sql       # Database schema
-├── tennis_queries.sql      # Analytical SQL queries
-│
-├── requirements.txt        # Python dependencies
-├── runtime.txt             # Python version pin for Streamlit Cloud
-│
-└── .streamlit/
-    └── secrets.toml        # Local secrets (not committed)
+flowchart TB
+    R[tennis-analytics-sportradar]
+
+    R --> A[App.py<br/>Streamlit Dashboard]
+    R --> E[ETL.py<br/>ETL Orchestrator]
+
+    R --> F1[fetch_competitions.py]
+    R --> F2[fetch_complexes.py]
+    R --> F3[fetch_ranking.py]
+
+    R --> D1[db_config.py]
+    R --> D2[connection.py]
+
+    R --> S1[tennis_schema.sql]
+    R --> S2[tennis_queries.sql]
+
+    R --> C1[requirements.txt]
+    R --> C2[runtime.txt]
+
+    R --> ST[.streamlit]
+    ST --> SEC[secrets.toml<br/>(not committed)]
+
 
 
 ---
